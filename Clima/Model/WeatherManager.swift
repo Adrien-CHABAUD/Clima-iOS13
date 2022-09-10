@@ -24,24 +24,21 @@ struct WeatherManager {
             let session = URLSession(configuration: .default)
             
             // 3. Give the session a task
-            let task = session.dataTask(with: url, completionHandler: handle(data:reponse:error:))
+            let task = session.dataTask(with: url) { data, response, error in
+                if error != nil {
+                    print(error!)
+                    // Exit the function
+                    return
+                }
+                
+                if let safeData = data {
+                    // Make the result readable
+                    
+                }
+            }
             
             // 4. Start the task
             task.resume()
-        }
-    }
-    
-    // Handle result of the request
-    func handle(data: Data?, reponse: URLResponse?, error: Error?) {
-        if error != nil {
-            print(error!)
-            // Exit the function
-            return
-        }
-        
-        if let safeData = data {
-            let dataString = String(data: safeData, encoding: .utf8)
-            print(dataString)
         }
     }
 }
