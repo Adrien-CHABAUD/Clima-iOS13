@@ -35,7 +35,6 @@ class WeatherViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         // Dismisses the keyboard
         searchTextField.endEditing(true)
-        print(searchTextField.text!)
         return true
     }
     
