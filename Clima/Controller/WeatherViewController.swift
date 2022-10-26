@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate {
+class WeatherViewController: UIViewController {
 
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -26,8 +26,11 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         // TextField has to tell to the ViewController what is happening
         searchTextField.delegate = self
     }
+}
 
+//MARK: - UITextViewDelegate
 
+extension WeatherViewController: UITextFieldDelegate {
     @IBAction func searchPressed(_ sender: UIButton) {
         // Dismisses the keyboard
         searchTextField.endEditing(true)
@@ -62,7 +65,11 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         // Reset the placeholder of the textField
         textField.placeholder = "Search"
     }
-    
+}
+
+//MARK: - WeatherManagerDelegate
+
+extension WeatherViewController: WeatherManagerDelegate{
     // Delegte Method
     func didUpdateWeather(_ weatherManager: WeatherManager ,weather: WeatherModel) {
         DispatchQueue.main.async {
@@ -77,4 +84,3 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         print(error)
     }
 }
-
