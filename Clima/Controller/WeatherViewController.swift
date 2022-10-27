@@ -22,7 +22,11 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        locationManager.delegate = self
+        // Show the message asking authorization to use location
         locationManager.requestWhenInUseAuthorization()
+        // Request the location only once
+        locationManager.requestLocation()
         
         // Show itself as the delegate
         weatherManager.delegate = self
@@ -85,6 +89,16 @@ extension WeatherViewController: WeatherManagerDelegate{
     
     // Handles errors
     func didFailWithError(error: Error) {
+        print(error)
+    }
+}
+
+extension WeatherViewController: CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("Location found.")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
 }
